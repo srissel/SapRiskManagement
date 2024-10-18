@@ -1,0 +1,36 @@
+---
+general:
+  buildTool: "mta"
+service:
+  buildToolVersion: "MBTJ11N18"
+stages:
+  Build:
+    mavenExecuteStaticCodeChecks: false
+    npmExecuteLint: false
+  Additional Unit Tests:
+    npmExecuteScripts: false
+    karmaExecuteTests: false
+  Acceptance:
+    cloudFoundryDeploy: true
+    cfApiEndpoint: "https://api.cf.eu20.hana.ondemand.com"
+    cfOrg: "VANTAiO_GmbH &amp; Co. KG_2lc4rr3-lnz-sw3t"
+    cfSpace: "dev"
+    cfCredentialsId: "srissel-github"
+    uiVeri5ExecuteTests: false
+  Compliance:
+    sonarExecuteScan: false
+  Release:
+    cloudFoundryDeploy: false
+    cfApiEndpoint: ""
+    cfOrg: ""
+    cfSpace: ""
+    cfCredentialsId: ""
+    tmsUpload: false
+steps:
+  artifactPrepareVersion:
+    versioningType: "cloud_noTag"
+  cloudFoundryDeploy:
+    mtaDeployParameters: "-f --version-rule ALL"
+  tmsUpload:
+    nodeName: ""
+    credentialsId: ""
