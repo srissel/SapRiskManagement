@@ -28,17 +28,6 @@
       "enableDiscovery": "true"
     },
     {
-      "label": "npm-install",
-      "type": "process",
-      "command": "npm",
-      "args": [
-        "install"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      }
-    },
-    {
       "label": "BuildMDK",
       "type": "process",
       "command": "npx",
@@ -82,6 +71,31 @@
       ],
       "dependsOn": [
         "BuildMDK"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "checkPort4004",
+      "type": "shell",
+      "command": "if lsof -i :4004 >/dev/null 2>&1; then echo ' A debugger has been started!';exit 1; else exit 0; fi",
+      "presentation": {
+        "echo": false,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "npm-install",
+      "type": "process",
+      "command": "npm",
+      "args": [
+        "install"
+      ],
+      "dependsOn": [
+        "checkPort4004"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
